@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
  * Created by rzhou on 10/09/2017.
  */
 public class LibraryTest {
-    Library library;
+    private Library library;
 
     @Before
     public void setUp() throws Exception {
