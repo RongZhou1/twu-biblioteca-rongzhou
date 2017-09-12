@@ -10,6 +10,11 @@ public class Library {
     private List<Book> availableBooks;
     private List<Book> lendingBooks;
 
+    public Library() {
+        this.availableBooks = new ArrayList<Book>();
+        this.lendingBooks = new ArrayList<Book>();
+    }
+
     public Library(List<Book> books) {
         this.availableBooks = new ArrayList<Book>();
         this.lendingBooks = new ArrayList<Book>();
