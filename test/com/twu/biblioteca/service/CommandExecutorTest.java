@@ -46,7 +46,8 @@ public class CommandExecutorTest {
 
     @Test
     public void should_list_all_available_book() throws Exception {
-        String result = "Name    Author    PublishYear\n"
+        String result = "--------------------------------------\n"
+                + "Name    Author    PublishYear\n"
                 + "--------------------------------------\n"
                 + "Refactoring    Martin Fowler    2015\n"
                 + "Thinking in Java    Bruce Eckel    2017\n"

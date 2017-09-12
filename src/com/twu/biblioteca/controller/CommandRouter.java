@@ -1,5 +1,6 @@
 package com.twu.biblioteca.controller;
 
+import com.twu.biblioteca.model.Library;
 import com.twu.biblioteca.service.CommandExecutor;
 import com.twu.biblioteca.view.Page;
 
@@ -13,10 +14,13 @@ import static com.twu.biblioteca.controller.Status.*;
 public class CommandRouter {
     private CommandExecutor service;
     private Status statusNow;
+    private Library library;
 
-    public CommandRouter() {
+    public CommandRouter(Library library) {
         service = new CommandExecutor();
         this.statusNow = HOME_PAGE;
+        service.setLibrary(library);
+        service.display(Page.HOME_PAGE);
     }
 
     public Status getStatusNow() {
@@ -29,7 +33,8 @@ public class CommandRouter {
             case HOME_PAGE: {
                 switch (input) {
                     case "1":
-                        statusNow = BOOK_LIST_PAGE;
+                        statusNow = HOME_PAGE;
+                        service.displayBookList();
                         service.display(Page.HOME_PAGE);
                         break;
                     case "2":
@@ -47,29 +52,24 @@ public class CommandRouter {
             }
             break;
 
-            case BOOK_LIST_PAGE: {
-                if (Objects.equals(input, "h")) {
-                    statusNow = HOME_PAGE;
-                    service.display(Page.HOME_PAGE);
-                }
-                service.displayBookList();
-            }
-            break;
-
             case CHECKOUT_BOOK_PAGE:
-                if (Objects.equals(input, "h")) {
+                if (input.equals("h")) {
                     statusNow = HOME_PAGE;
                     service.display(Page.HOME_PAGE);
+                    break;
                 }
                 service.checkoutBook(input);
                 break;
 
             case RETURN_BOOK_PAGE:
-                if (Objects.equals(input, "h")) {
+                if (input.equals("h")) {
                     statusNow = HOME_PAGE;
+                    service.display(Page.HOME_PAGE);
+                    break;
                 }
                 service.returnBook(input);
                 break;
         }
     }
+
 }

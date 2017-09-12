@@ -5,7 +5,6 @@ package com.twu.biblioteca.controller;
  */
 public enum Status {
     HOME_PAGE,
-    BOOK_LIST_PAGE,
     CHECKOUT_BOOK_PAGE,
     RETURN_BOOK_PAGE
 }

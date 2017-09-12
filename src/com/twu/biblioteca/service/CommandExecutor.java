@@ -20,7 +20,7 @@ public class CommandExecutor {
     }
 
     public String displayInputError() {
-        System.out.println(Notice.errorInput);
+        System.out.print(Notice.errorInput);
         return Notice.errorInput;
     }
 
@@ -28,7 +28,7 @@ public class CommandExecutor {
 
         String bookListHeader = "Name    Author    PublishYear\n";
         String splitLine = "--------------------------------------\n";
-        String bookList = bookListHeader + splitLine;
+        String bookList = splitLine + bookListHeader + splitLine;
 
         for (int i = 0; i < library.getAvailableBooks().size(); i++) {
             Book book = library.getAvailableBooks().get(i);
@@ -36,7 +36,7 @@ public class CommandExecutor {
         }
         bookList += splitLine;
 
-        System.out.println(bookList);
+        System.out.print(bookList);
         return bookList;
     }
 
@@ -48,7 +48,7 @@ public class CommandExecutor {
         } else {
             str = Notice.checkoutBookFail + Page.CHECKOUT_PAGE;
         }
-        System.out.println(str);
+        System.out.print(str);
         return str;
 
     }
@@ -60,7 +60,7 @@ public class CommandExecutor {
         } else {
             str = Notice.returnBookFail + Page.RETURN_PAGE;
         }
-        System.out.println(str);
+        System.out.print(str);
         return str;
     }
 
@@ -70,7 +70,7 @@ public class CommandExecutor {
     }
 
     public String display(String displayContent) {
-        System.out.println(displayContent);
+        System.out.print(displayContent);
         return displayContent;
     }
 }

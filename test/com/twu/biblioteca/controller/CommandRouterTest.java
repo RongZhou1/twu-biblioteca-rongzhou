@@ -1,8 +1,10 @@
 package com.twu.biblioteca.controller;
 
+import com.twu.biblioteca.model.Library;
 import com.twu.biblioteca.service.CommandExecutor;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -20,13 +22,13 @@ public class CommandRouterTest {
 
     @Before
     public void setUp() throws Exception {
-        controller = new CommandRouter();
+        controller = new CommandRouter(new Library());
     }
 
     @Test
     public void should_jump_into_book_list_page() throws Exception {
         controller.commandMapping("1");
-        assertThat(controller.getStatusNow(), is(Status.BOOK_LIST_PAGE));
+        assertThat(controller.getStatusNow(), is(Status.HOME_PAGE));
 //        verify(this.service, times(1)).display();
 
     }
