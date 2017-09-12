@@ -18,10 +18,7 @@ import static org.junit.Assert.assertThat;
  */
 public class CommandExecutorTest {
 
-    Page page;
-    Notice notice;
     Library library;
-
     CommandExecutor service = new CommandExecutor();
 
     @Before
@@ -55,26 +52,26 @@ public class CommandExecutorTest {
                 + "Thinking in Java    Bruce Eckel    2017\n"
                 + "Clean Code    Robert C. Martin    2010\n"
                 + "--------------------------------------\n";
-        assertThat(service.buildBookList(), is(result));
+        assertThat(service.displayBookList(), is(result));
     }
 
     @Test
     public void should_display_checkout_success() throws Exception {
-        assertThat(service.checkoutBook("Refactoring"), is(notice.checkkoutBookSuccess + page.CHECKOUT_PAGE));
+        assertThat(service.checkoutBook("Refactoring"), is(Notice.checkkoutBookSuccess + Page.CHECKOUT_PAGE));
     }
 
     @Test
     public void should_display_checkout_fail() throws Exception {
-        assertThat(service.checkoutBook("Python"), is(notice.checkoutBookFail + page.CHECKOUT_PAGE));
+        assertThat(service.checkoutBook("Python"), is(Notice.checkoutBookFail + Page.CHECKOUT_PAGE));
     }
 
     @Test
     public void should_display_return_book_success() throws Exception {
-        assertThat(service.returnBook("Effective Java"), is(notice.returnBookSuccess + page.RETURN_PAGE));
+        assertThat(service.returnBook("Effective Java"), is(Notice.returnBookSuccess + Page.RETURN_PAGE));
     }
 
     @Test
     public void should_display_return_book_fail() throws Exception {
-        assertThat(service.returnBook("Python"), is(notice.returnBookFail + page.RETURN_PAGE));
+        assertThat(service.returnBook("Python"), is(Notice.returnBookFail + Page.RETURN_PAGE));
     }
 }
