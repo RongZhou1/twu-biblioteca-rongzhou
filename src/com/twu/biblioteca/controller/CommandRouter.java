@@ -38,19 +38,19 @@ public class CommandRouter {
             }
             break;
 
-//            case CHECKOUT_BOOK_PAGE:
-//                if (input == "h") {
-//                    statusNow = Status.HOME_PAGE;
-//                }
-//                service.checkoutBook(input);
-//                break;
-//
-//            case RETURN_BOOK_PAGE:
-//                if (input == "h") {
-//                    statusNow = statusNow.HOME_PAGE;
-//                }
-//                service.returnBook(input);
-//                break;
+            case CHECKOUT_BOOK_PAGE:
+                if (input == "h") {
+                    statusNow = Status.HOME_PAGE;
+                }
+                service.checkoutBook(input);
+                break;
+
+            case RETURN_BOOK_PAGE:
+                if (input == "h") {
+                    statusNow = statusNow.HOME_PAGE;
+                }
+                service.returnBook(input);
+                break;
         }
     }
 }

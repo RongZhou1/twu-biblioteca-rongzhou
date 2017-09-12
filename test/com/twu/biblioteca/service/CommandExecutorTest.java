@@ -2,13 +2,14 @@ package com.twu.biblioteca.service;
 
 import com.twu.biblioteca.model.Book;
 import com.twu.biblioteca.model.Library;
+import com.twu.biblioteca.view.Notice;
+import com.twu.biblioteca.view.Page;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 
@@ -17,11 +18,15 @@ import static org.junit.Assert.assertThat;
  */
 public class CommandExecutorTest {
 
+    Page page;
+    Notice notice;
+    Library library;
+
     CommandExecutor service = new CommandExecutor();
 
     @Before
     public void setUp() throws Exception {
-        Library library = new Library();
+        library = new Library();
 
         Book book1 = new Book("Refactoring", "Martin Fowler", 2015);
         Book book2 = new Book("Thinking in Java", "Bruce Eckel", 2017);
@@ -53,5 +58,23 @@ public class CommandExecutorTest {
         assertThat(service.buildBookList(), is(result));
     }
 
+    @Test
+    public void should_display_checkout_success() throws Exception {
+        assertThat(service.checkoutBook("Refactoring"), is(notice.checkkoutBookSuccess + page.CHECKOUT_PAGE));
+    }
 
+    @Test
+    public void should_display_checkout_fail() throws Exception {
+        assertThat(service.checkoutBook("Python"), is(notice.checkoutBookFail + page.CHECKOUT_PAGE));
+    }
+
+    @Test
+    public void should_display_return_book_success() throws Exception {
+        assertThat(service.returnBook("Effective Java"), is(notice.returnBookSuccess + page.RETURN_PAGE));
+    }
+
+    @Test
+    public void should_display_return_book_fail() throws Exception {
+        assertThat(service.returnBook("Python"), is(notice.returnBookFail + page.RETURN_PAGE));
+    }
 }
