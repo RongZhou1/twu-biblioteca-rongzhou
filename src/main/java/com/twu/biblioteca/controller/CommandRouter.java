@@ -11,12 +11,16 @@ import static com.twu.biblioteca.controller.Status.*;
  */
 public class CommandRouter {
     private CommandExecutor service;
-    private Status statusNow;
-    private Library library;
+    private Status statusNow = HOME_PAGE;
+
+    public CommandRouter(CommandExecutor service, Library library) {
+        this.service = service;
+        service.setLibrary(library);
+        service.display(Page.HOME_PAGE);
+    }
 
     public CommandRouter(Library library) {
         service = new CommandExecutor();
-        this.statusNow = HOME_PAGE;
         service.setLibrary(library);
         service.display(Page.HOME_PAGE);
     }
