@@ -1,2 +1,12 @@
+# Generated files
+.idea
+.gradle
+build
 out
-.idea/workspace.xml
+lib
+
+*.iml
+*.ipr
+*.iws
+
+.DS_Store
