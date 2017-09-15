@@ -41,11 +41,20 @@ public class CommandRouter {
                         break;
                     case "2":
                         statusNow = CHECKOUT_BOOK_PAGE;
-                        service.display(Page.CHECKOUT_PAGE);
+                        service.display(Page.CHECKOUT_BOOK_PAGE);
                         break;
                     case "3":
                         statusNow = RETURN_BOOK_PAGE;
-                        service.display(Page.RETURN_PAGE);
+                        service.display(Page.RETURN_BOOK_PAGE);
+                        break;
+                    case "4":
+                        statusNow = HOME_PAGE;
+                        service.displayMovieList();
+                        service.display(Page.HOME_PAGE);
+                        break;
+                    case "5":
+                        statusNow = CHECKOUT_MOVIE_PAGE;
+                        service.display(Page.CHECKOUT_MOVIE_PAGE);
                         break;
                     default:
                         service.displayInputError();
@@ -60,7 +69,7 @@ public class CommandRouter {
                     service.display(Page.HOME_PAGE);
                     break;
                 }
-                service.checkoutBook(input);
+                service.checkOutBook(input);
                 break;
 
             case RETURN_BOOK_PAGE:
@@ -71,7 +80,15 @@ public class CommandRouter {
                 }
                 service.returnBook(input);
                 break;
+
+            case CHECKOUT_MOVIE_PAGE:
+                if (input.equals("h")) {
+                    statusNow = HOME_PAGE;
+                    service.display(Page.HOME_PAGE);
+                    break;
+                }
+                service.checkOutMovie(input);
+                break;
         }
     }
-
 }

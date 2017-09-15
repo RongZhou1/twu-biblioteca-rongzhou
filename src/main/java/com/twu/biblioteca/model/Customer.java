@@ -12,4 +12,8 @@ public class Customer {
     public boolean returnBook(String name, Library library) {
         return library.putBackBook(name);
     }
+
+    public boolean checkOutMovie(String name, Library library) {
+        return library.takeOutMovie(name);
+    }
 }

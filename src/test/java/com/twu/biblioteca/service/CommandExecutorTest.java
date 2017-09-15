@@ -1,14 +1,12 @@
 package com.twu.biblioteca.service;
 
-import com.twu.biblioteca.model.Book;
 import com.twu.biblioteca.model.Library;
 import com.twu.biblioteca.view.Notice;
 import com.twu.biblioteca.view.Page;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-
+import static com.twu.biblioteca.LibraryFixture.buildLibrary;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -18,23 +16,11 @@ import static org.junit.Assert.assertThat;
  */
 public class CommandExecutorTest {
 
-    Library library;
-    CommandExecutor service = new CommandExecutor();
+    private CommandExecutor service = new CommandExecutor();
 
     @Before
     public void setUp() throws Exception {
-        library = new Library();
-
-        Book book1 = new Book("Refactoring", "Martin Fowler", 2015);
-        Book book2 = new Book("Thinking in Java", "Bruce Eckel", 2017);
-        Book book3 = new Book("Clean Code", "Robert C. Martin", 2010);
-
-        library = new Library(Arrays.asList(book1, book2, book3));
-
-        Book book4 = new Book("Knowledge Concept Maps", "Joseph D. Novak", 2016);
-        Book book5 = new Book("Effective Java", "Joshua Bloch ", 2009);
-
-        library.setLendingBooks(Arrays.asList(book4, book5));
+        Library library = buildLibrary();
         service.setLibrary(library);
     }
 
@@ -45,34 +31,56 @@ public class CommandExecutorTest {
     }
 
     @Test
-    public void should_list_all_available_book() throws Exception {
+    public void should_list_all_available_books() throws Exception {
         String result = "--------------------------------------\n"
-                + "Name    Author    PublishYear\n"
+                + "Name\tAuthor\tPublishYear\n"
                 + "--------------------------------------\n"
-                + "Refactoring    Martin Fowler    2015\n"
-                + "Thinking in Java    Bruce Eckel    2017\n"
-                + "Clean Code    Robert C. Martin    2010\n"
+                + "Refactoring|\tMartin Fowler|\t2015\n"
+                + "Thinking in Java|\tBruce Eckel|\t2017\n"
+                + "Clean Code|\tRobert C. Martin|\t2010\n"
                 + "--------------------------------------\n";
         assertThat(service.displayBookList(), is(result));
     }
 
     @Test
+    public void should_list_all_movies() throws Exception {
+        String result = "--------------------------------------\n"
+                + "Name\tYear\tDirector\tRating\n"
+                + "--------------------------------------\n"
+                + "Titanic|\t1997|\tJames Cameron|\t8\n"
+                + "Forrest Gump|\t1993|\tRobert Zemeckis|\t9\n"
+                + "The Terminator|\t1984|\tJames Cameron|\tunrated\n"
+                + "--------------------------------------\n";
+        assertThat(service.displayMovieList(), is(result));
+    }
+
+    @Test
     public void should_display_checkout_success() throws Exception {
-        assertThat(service.checkoutBook("Refactoring"), is(Notice.checkkoutBookSuccess + Page.CHECKOUT_PAGE));
+        assertThat(service.checkOutBook("Refactoring"), is(Notice.checkOutBookSuccess + Page.CHECKOUT_BOOK_PAGE));
     }
 
     @Test
     public void should_display_checkout_fail() throws Exception {
-        assertThat(service.checkoutBook("Python"), is(Notice.checkoutBookFail + Page.CHECKOUT_PAGE));
+        assertThat(service.checkOutBook("Python"), is(Notice.checkOutBookFail + Page.CHECKOUT_BOOK_PAGE));
     }
 
     @Test
     public void should_display_return_book_success() throws Exception {
-        assertThat(service.returnBook("Effective Java"), is(Notice.returnBookSuccess + Page.RETURN_PAGE));
+        assertThat(service.returnBook("Effective Java"), is(Notice.returnBookSuccess + Page.RETURN_BOOK_PAGE));
     }
 
     @Test
     public void should_display_return_book_fail() throws Exception {
-        assertThat(service.returnBook("Python"), is(Notice.returnBookFail + Page.RETURN_PAGE));
+        assertThat(service.returnBook("Python"), is(Notice.returnBookFail + Page.RETURN_BOOK_PAGE));
+    }
+
+    @Test
+    public void should_display_return_movie_success() throws Exception {
+        assertThat(service.checkOutMovie("Titanic"), is(Notice.checkOutMovieSuccess + Page.CHECKOUT_MOVIE_PAGE));
+    }
+
+    @Test
+    public void should_display_return_movie_fail() throws Exception {
+        assertThat(service.checkOutMovie("Avatar"), is(Notice.checkOutMovieFail + Page.CHECKOUT_MOVIE_PAGE));
     }
 }
