@@ -8,4 +8,5 @@ public enum Status {
     CHECKOUT_BOOK_PAGE,
     RETURN_BOOK_PAGE,
     CHECKOUT_MOVIE_PAGE,
+    LOGIN_PAGE
 }

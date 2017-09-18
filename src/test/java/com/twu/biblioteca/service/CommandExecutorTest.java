@@ -8,7 +8,9 @@ import org.junit.Test;
 
 import static com.twu.biblioteca.LibraryFixture.buildLibrary;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -56,31 +58,37 @@ public class CommandExecutorTest {
 
     @Test
     public void should_display_checkout_success() throws Exception {
+        service.login("123-4444", "123456");
         assertThat(service.checkOutBook("Refactoring"), is(Notice.checkOutBookSuccess + Page.CHECKOUT_BOOK_PAGE));
     }
 
     @Test
     public void should_display_checkout_fail() throws Exception {
+        service.login("123-4444", "123456");
         assertThat(service.checkOutBook("Python"), is(Notice.checkOutBookFail + Page.CHECKOUT_BOOK_PAGE));
     }
 
     @Test
     public void should_display_return_book_success() throws Exception {
+        service.login("123-4444", "123456");
         assertThat(service.returnBook("Effective Java"), is(Notice.returnBookSuccess + Page.RETURN_BOOK_PAGE));
     }
 
     @Test
     public void should_display_return_book_fail() throws Exception {
+        service.login("123-4444", "123456");
         assertThat(service.returnBook("Python"), is(Notice.returnBookFail + Page.RETURN_BOOK_PAGE));
     }
 
     @Test
     public void should_display_return_movie_success() throws Exception {
+        service.login("123-4444", "123456");
         assertThat(service.checkOutMovie("Titanic"), is(Notice.checkOutMovieSuccess + Page.CHECKOUT_MOVIE_PAGE));
     }
 
     @Test
     public void should_display_return_movie_fail() throws Exception {
+        service.login("123-4444", "123456");
         assertThat(service.checkOutMovie("Avatar"), is(Notice.checkOutMovieFail + Page.CHECKOUT_MOVIE_PAGE));
     }
 
@@ -92,6 +100,22 @@ public class CommandExecutorTest {
                 + "Address: ThoughtWorks University\n"
                 + "Phone: 12345678900\n"
                 + "--------------------------------------\n";
+        service.login("123-4444", "123456");
         assertThat(service.displayUserInfo(), is(result));
+    }
+
+    @Test
+    public void should_log_in_successfully_given_correct_library_number_and_password() throws Exception {
+        assertTrue(service.login("123-4444", "123456"));
+    }
+
+    @Test
+    public void should_log_in_failed_given_incorrect_library_number() throws Exception {
+        assertFalse(service.login("123-4", "123456"));
+    }
+
+    @Test
+    public void should_log_in_failed_given_incorrect_password() throws Exception {
+        assertFalse(service.login("123-4444", "000"));
     }
 }

@@ -13,6 +13,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by rzhou on 13/09/2017.
@@ -40,6 +41,7 @@ public class CommandRouterTest {
 
     @Test
     public void should_jump_into_book_checkout_page() throws Exception {
+        when(service.isLogined()).thenReturn(true);
         controller.commandMapping("2");
         assertThat(controller.getStatusNow(), is(Status.CHECKOUT_BOOK_PAGE));
         verify(this.service).display(Page.CHECKOUT_BOOK_PAGE);
@@ -47,6 +49,7 @@ public class CommandRouterTest {
 
     @Test
     public void should_jump_into_book_return_page() throws Exception {
+        when(service.isLogined()).thenReturn(true);
         controller.commandMapping("3");
         assertThat(controller.getStatusNow(), is(Status.RETURN_BOOK_PAGE));
         verify(this.service).display(Page.RETURN_BOOK_PAGE);
@@ -76,6 +79,7 @@ public class CommandRouterTest {
 
     @Test
     public void should_remain_book_check_out_page_until_input_h() throws Exception {
+        when(service.isLogined()).thenReturn(true);
         controller.commandMapping("2");
         controller.commandMapping("some thing");
         assertThat(controller.getStatusNow(), is(Status.CHECKOUT_BOOK_PAGE));
@@ -93,6 +97,7 @@ public class CommandRouterTest {
 
     @Test
     public void should_remain_book_return_page_until_input_h() throws Exception {
+        when(service.isLogined()).thenReturn(true);
         controller.commandMapping("3");
         controller.commandMapping("some thing");
         assertThat(controller.getStatusNow(), is(Status.RETURN_BOOK_PAGE));
@@ -127,8 +132,33 @@ public class CommandRouterTest {
 
     @Test
     public void should_jump_into_user_info_page() throws Exception {
+        when(service.isLogined()).thenReturn(true);
         controller.commandMapping("6");
         assertThat(controller.getStatusNow(), is(Status.HOME_PAGE));
         verify(this.service).displayUserInfo();
+    }
+
+    @Test
+    public void should_not_jump_into_check_out_book_page_when_not_login() throws Exception {
+        when(service.isLogined()).thenReturn(false);
+        controller.commandMapping("2");
+        assertThat(controller.getStatusNow(), is(Status.LOGIN_PAGE));
+        verify(this.service).display(Page.LOGIN_PAGE);
+    }
+
+    @Test
+    public void should_not_jump_into_return_book_page_when_not_login() throws Exception {
+        when(service.isLogined()).thenReturn(false);
+        controller.commandMapping("3");
+        assertThat(controller.getStatusNow(), is(Status.LOGIN_PAGE));
+        verify(this.service).display(Page.LOGIN_PAGE);
+    }
+
+    @Test
+    public void should_not_jump_into_user_info_page_when_not_login() throws Exception {
+        when(service.isLogined()).thenReturn(false);
+        controller.commandMapping("6");
+        assertThat(controller.getStatusNow(), is(Status.LOGIN_PAGE));
+        verify(this.service).display(Page.LOGIN_PAGE);
     }
 }

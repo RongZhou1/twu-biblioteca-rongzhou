@@ -10,7 +10,7 @@ public class Page {
             + "4. List all Movies\n"
             + "5. Check-out Movie\n"
             + "6. User Information\n"
-            + "Please input your choice(1-5) or \"q\" to quit:\n";
+            + "Please input your choice(1-6) or \"q\" to quit:\n";
 
     private static final String returnHomePage = "or \"h\" to return to home page:\n";
 
@@ -21,5 +21,7 @@ public class Page {
             + returnHomePage;
 
     public static final String CHECKOUT_MOVIE_PAGE = "Please input the movie name you want to check out"
+            + returnHomePage;
+    public static final String LOGIN_PAGE = "Please log in by inputting library number(xxx-xxxx) and password"
             + returnHomePage;
 }

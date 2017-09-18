@@ -14,4 +14,7 @@ public class Notice {
 
     public static String checkOutMovieSuccess = "Thank you! Enjoy the movie.\n";
     public static String checkOutMovieFail = "Error: That movie not available.\n";
+
+    public static String loginSuccess = "Log in successfully!\n";
+    public static String loginFail = "Error: bad library number or password.\n";
 }

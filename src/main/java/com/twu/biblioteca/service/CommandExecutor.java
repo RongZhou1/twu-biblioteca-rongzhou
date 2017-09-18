@@ -4,24 +4,32 @@ import com.twu.biblioteca.model.Book;
 import com.twu.biblioteca.model.User;
 import com.twu.biblioteca.model.Library;
 import com.twu.biblioteca.model.Movie;
+import com.twu.biblioteca.model.UserRepo;
 import com.twu.biblioteca.view.Notice;
 import com.twu.biblioteca.view.Page;
+
+import java.util.Objects;
 
 /**
  * Created by rzhou on 10/09/2017.
  */
 public class CommandExecutor {
+    private final String splitLine = "--------------------------------------\n";
 
-    private User user = new User("123-4444", "123456",
-            "Jack", "Jack@twu.com", "ThoughtWorks University", "12345678900");
+    private User user;
+    private UserRepo userRepo = new UserRepo();
     private Library library = new Library();
 
-    private String splitLine = "--------------------------------------\n";
+    private boolean isLogined = false;
 
     public void setLibrary(Library library) {
         this.library.setAvailableBooks(library.getAvailableBooks());
         this.library.setLendingBooks(library.getLendingBooks());
         this.library.setMovies(library.getMovies());
+    }
+
+    public boolean isLogined() {
+        return isLogined;
     }
 
     public String displayInputError() {
@@ -91,6 +99,19 @@ public class CommandExecutor {
 
         System.out.print(movieList);
         return movieList.toString();
+    }
+
+    public boolean login(String libraryNumber, String password) {
+        User user = userRepo.findUerByLibraryNumber(libraryNumber);
+        if (user == null) {
+            return false;
+        }
+        if (!Objects.equals(password, user.getPassword())) {
+            return false;
+        }
+        this.user = user;
+        isLogined = true;
+        return true;
     }
 
     private String buildBookItem(String name, String author, int publishedYear) {
