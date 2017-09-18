@@ -10,43 +10,43 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by rzhou on 10/09/2017.
  */
-public class CustomerTest {
+public class UserTest {
     private Library library;
-    private Customer customer;
+    private User user;
 
     @Before
     public void setUp() throws Exception {
         library = buildLibrary();
-        customer = new Customer();
+        user = new User();
     }
 
     @Test
     public void should_return_true_when_check_out_book_successfully() throws Exception {
-        assertTrue(customer.checkOutBook("Refactoring", library));
+        assertTrue(user.checkOutBook("Refactoring", library));
     }
 
     @Test
     public void should_return_false_when_check_out_book_unsuccessfully() throws Exception {
-        assertFalse(customer.checkOutBook("Python", library));
+        assertFalse(user.checkOutBook("Python", library));
     }
 
     @Test
     public void should_return_true_when_put_back_book_successfully() throws Exception {
-        assertTrue(customer.returnBook("Knowledge Concept Maps", library));
+        assertTrue(user.returnBook("Knowledge Concept Maps", library));
     }
 
     @Test
     public void should_return_true_when_put_back_book_unsuccessfully() throws Exception {
-        assertFalse(customer.returnBook("Python", library));
+        assertFalse(user.returnBook("Python", library));
     }
 
     @Test
     public void should_return_true_when_check_out_movie_successfully() throws Exception {
-        assertTrue(customer.checkOutMovie("Titanic", library));
+        assertTrue(user.checkOutMovie("Titanic", library));
     }
 
     @Test
     public void should_return_false_when_check_out_movie_unsuccessfully() throws Exception {
-        assertFalse(customer.checkOutMovie("Avatar", library));
+        assertFalse(user.checkOutMovie("Avatar", library));
     }
 }

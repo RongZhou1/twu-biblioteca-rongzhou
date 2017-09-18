@@ -1,7 +1,7 @@
 package com.twu.biblioteca.service;
 
 import com.twu.biblioteca.model.Book;
-import com.twu.biblioteca.model.Customer;
+import com.twu.biblioteca.model.User;
 import com.twu.biblioteca.model.Library;
 import com.twu.biblioteca.model.Movie;
 import com.twu.biblioteca.view.Notice;
@@ -12,8 +12,11 @@ import com.twu.biblioteca.view.Page;
  */
 public class CommandExecutor {
 
-    private Customer customer = new Customer();
+    private User user = new User("123-4444", "123456",
+            "Jack", "Jack@twu.com", "ThoughtWorks University", "12345678900");
     private Library library = new Library();
+
+    private String splitLine = "--------------------------------------\n";
 
     public void setLibrary(Library library) {
         this.library.setAvailableBooks(library.getAvailableBooks());
@@ -29,7 +32,6 @@ public class CommandExecutor {
     public String displayBookList() {
 
         String bookListHeader = "Name\tAuthor\tPublishYear\n";
-        String splitLine = "--------------------------------------\n";
         StringBuilder bookList = new StringBuilder(splitLine + bookListHeader + splitLine);
 
         for (int i = 0; i < library.getAvailableBooks().size(); i++) {
@@ -45,7 +47,7 @@ public class CommandExecutor {
 
     public String checkOutBook(String name) {
         String str;
-        if (customer.checkOutBook(name, library)) {
+        if (user.checkOutBook(name, library)) {
             str = Notice.checkOutBookSuccess + Page.CHECKOUT_BOOK_PAGE;
         } else {
             str = Notice.checkOutBookFail + Page.CHECKOUT_BOOK_PAGE;
@@ -56,7 +58,7 @@ public class CommandExecutor {
 
     public String checkOutMovie(String name) {
         String str;
-        if (customer.checkOutMovie(name, library)) {
+        if (user.checkOutMovie(name, library)) {
             str = Notice.checkOutMovieSuccess + Page.CHECKOUT_MOVIE_PAGE;
         } else {
             str = Notice.checkOutMovieFail + Page.CHECKOUT_MOVIE_PAGE;
@@ -67,7 +69,7 @@ public class CommandExecutor {
 
     public String returnBook(String name) {
         String str;
-        if (customer.returnBook(name, library)) {
+        if (user.returnBook(name, library)) {
             str = Notice.returnBookSuccess + Page.RETURN_BOOK_PAGE;
         } else {
             str = Notice.returnBookFail + Page.RETURN_BOOK_PAGE;
@@ -79,7 +81,6 @@ public class CommandExecutor {
     public String displayMovieList() {
 
         String movieListHeader = "Name\tYear\tDirector\tRating\n";
-        String splitLine = "--------------------------------------\n";
         StringBuilder movieList = new StringBuilder(splitLine + movieListHeader + splitLine);
 
         for (int i = 0; i < library.getMovies().size(); i++) {
@@ -111,5 +112,17 @@ public class CommandExecutor {
     public String display(String displayContent) {
         System.out.print(displayContent);
         return displayContent;
+    }
+
+    public String displayUserInfo() {
+        String userInfo = splitLine
+                + "Name: %s\n"
+                + "Email: %s\n"
+                + "Address: %s\n"
+                + "Phone: %s\n"
+                + splitLine;
+        userInfo = String.format(userInfo, user.getName(), user.getEmail(), user.getAddress(), user.getPhone());
+        System.out.print(userInfo);
+        return userInfo;
     }
 }

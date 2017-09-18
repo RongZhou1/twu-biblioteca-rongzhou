@@ -56,6 +56,10 @@ public class CommandRouter {
                         statusNow = CHECKOUT_MOVIE_PAGE;
                         service.display(Page.CHECKOUT_MOVIE_PAGE);
                         break;
+                    case "6":
+                        service.displayUserInfo();
+                        service.display(Page.HOME_PAGE);
+                        break;
                     default:
                         service.displayInputError();
                         break;

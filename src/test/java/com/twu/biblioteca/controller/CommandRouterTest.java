@@ -124,4 +124,11 @@ public class CommandRouterTest {
         assertThat(controller.getStatusNow(), is(Status.HOME_PAGE));
         verify(this.service, times(2)).display(Page.HOME_PAGE);
     }
+
+    @Test
+    public void should_jump_into_user_info_page() throws Exception {
+        controller.commandMapping("6");
+        assertThat(controller.getStatusNow(), is(Status.HOME_PAGE));
+        verify(this.service).displayUserInfo();
+    }
 }

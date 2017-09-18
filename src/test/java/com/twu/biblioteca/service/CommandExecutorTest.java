@@ -83,4 +83,15 @@ public class CommandExecutorTest {
     public void should_display_return_movie_fail() throws Exception {
         assertThat(service.checkOutMovie("Avatar"), is(Notice.checkOutMovieFail + Page.CHECKOUT_MOVIE_PAGE));
     }
+
+    @Test
+    public void should_display_user_info() throws Exception {
+        String result = "--------------------------------------\n"
+                + "Name: Jack\n"
+                + "Email: Jack@twu.com\n"
+                + "Address: ThoughtWorks University\n"
+                + "Phone: 12345678900\n"
+                + "--------------------------------------\n";
+        assertThat(service.displayUserInfo(), is(result));
+    }
 }
